@@ -35,7 +35,10 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
         }
     }
     private func updatedDataFromDatabase(){
-        self.clients.removeAll()
+        if self.clients.count != 0{
+            self.clients.removeAll()
+            self.tableView.reloadData()
+        }
         downLoadClientInfo()
         observeChangesForClients()
     }
