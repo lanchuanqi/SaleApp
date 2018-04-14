@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>527748768860-vn84n16957hi5l0a7f3a75o1lggn2a6r.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.527748768860-vn84n16957hi5l0a7f3a75o1lggn2a6r</string>
+	<key>API_KEY</key>
+	<string>AIzaSyADanvIwczp2q_zlqYMLu70v__TlWiJia0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>527748768860</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>a.SaleApp.com</string>
+	<key>PROJECT_ID</key>
+	<string>saleapp-2a588</string>
+	<key>STORAGE_BUCKET</key>
+	<string>saleapp-2a588.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:527748768860:ios:7cd09838ac76d209</string>
+	<key>DATABASE_URL</key>
+	<string>https://saleapp-2a588.firebaseio.com</string>
+</dict>
+</plist>
