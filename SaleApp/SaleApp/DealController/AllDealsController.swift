@@ -17,6 +17,10 @@ class AllDealsController: UITableViewController{
         }
     }
     var deals = [Deal]()
+    var finishedDeal = [Deal]()
+    let headerName = ["Not Shipped", "Shipped"]
+    
+    
     let cellId = "cellId"
     var selectedIndexPath: IndexPath?
     
@@ -65,8 +69,14 @@ class AllDealsController: UITableViewController{
                 deal.shipNumber = dictionary["shipNumber"] as? String
                 deal.shipped = dictionary["shipped"] as? String
                 deal.image = dictionary["image"] as? String
+                if let shipOrNot = deal.shipped{
+                    if shipOrNot == "1"{
+                        self.finishedDeal.append(deal)
+                    } else {
+                        self.deals.append(deal)
+                    }
+                }
                 DispatchQueue.main.async {
-                    self.deals.append(deal)
                     self.tableView.reloadData()
                 }
             }
@@ -89,11 +99,26 @@ class AllDealsController: UITableViewController{
                 deal.shipNumber = dictionary["shipNumber"] as? String
                 deal.shipped = dictionary["shipped"] as? String
                 deal.image = dictionary["image"] as? String
-                if let indexPath = self.selectedIndexPath{
-                    DispatchQueue.main.async {
-                        self.deals[indexPath.row] = deal
-                        self.tableView.reloadRows(at: [indexPath], with: .middle)
+                
+                if let shipOrNot = deal.shipped{
+                    if shipOrNot == "1"{
+                        if self.finishedDeal.contains(where: {$0.key == deal.key}) == false{
+                            self.finishedDeal.append(deal)
+                            self.deals = self.deals.filter({ (existingDeal) -> Bool in
+                                return existingDeal.key != deal.key
+                            })
+                        }
+                    } else {
+                        if self.deals.contains(where: {$0.key == deal.key}) == false{
+                            self.deals.append(deal)
+                            self.finishedDeal = self.finishedDeal.filter({ (existingDeal) -> Bool in
+                                return existingDeal.key != deal.key
+                            })
+                        }
                     }
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
             }
         }

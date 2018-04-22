@@ -7,33 +7,64 @@
 //
 
 import UIKit
+class IndentedLabel: UILabel{
+    override func draw(_ rect: CGRect) {
+        let insert = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        let customeRect = UIEdgeInsetsInsetRect(rect, insert)
+        super.drawText(in: customeRect)
+    }
+}
+
 
 extension AllDealsController{
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = IndentedLabel()
+        label.text = headerName[section]
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.darkBlue
+        label.backgroundColor = UIColor.lightBlue
+        return label
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return deals.count
+        if section == 0{
+            return self.deals.count
+        } else {
+            return self.finishedDeal.count
+        }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! DealsCell
-        let deal = deals[indexPath.row]
+        var deal = Deal()
+        if indexPath.section == 0{
+            deal = deals[indexPath.row]
+        } else {
+            deal = finishedDeal[indexPath.row]
+        }
         cell.deal = deal
         if let imageUrl = deal.image {
             if imageUrl != "None"{
                 cell.dealImageView.downLoadAndCacheImageFromURL(urlString: imageUrl)
+            } else {
+                cell.dealImageView.image = #imageLiteral(resourceName: "select_photo_empty")
             }
         }
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let deal = deals[indexPath.row]
-        self.selectedIndexPath = indexPath
+        var deal = Deal()
+        if indexPath.section == 0{
+            deal = deals[indexPath.row]
+        } else {
+            deal = finishedDeal[indexPath.row]
+        }
         let addDealVC = AddDealController()
         addDealVC.deal = deal
         addDealVC.client = client

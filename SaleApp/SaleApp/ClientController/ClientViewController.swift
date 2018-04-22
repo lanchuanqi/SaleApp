@@ -115,6 +115,27 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
         }
     }
     
+    private func observeDeleteActionForClients(){
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference()
+        ref.child("users").child(userId).child("Clients").observe(.childRemoved) { (snapshot) in
+            if let dictionary = snapshot.value as? NSDictionary {
+                var client = Client()
+                client.name = dictionary["name"] as? String
+                client.image = dictionary["profileImageUrl"] as? String
+                client.key = dictionary["key"] as? String
+                client.id = dictionary["id"] as? String
+                client.phone = dictionary["phone"] as? String
+                client.address = dictionary["address"] as? String
+                guard let index = self.clients.index(of: client) else { return }
+                self.clients.remove(at: index)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
     func didLogin() {
         updatedDataFromDatabase()
     }
