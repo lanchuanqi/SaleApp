@@ -57,7 +57,8 @@ class AddDealController: UIViewController{
     let priceTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.placeholder = "Enter item price"
+        //tf.placeholder = "Enter item price"
+        tf.text = "0"
         return tf
     }()
     let sellPriceLabel: UILabel = {
@@ -70,7 +71,8 @@ class AddDealController: UIViewController{
     let sellPriceTextField: UITextField = {
         let tf = UITextField()
         tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.placeholder = "Enter item sell price"
+        //tf.placeholder = "Enter item sell price"
+        tf.text = "0"
         return tf
     }()
     let shippingLabel: UILabel = {

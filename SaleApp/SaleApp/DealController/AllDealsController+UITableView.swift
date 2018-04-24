@@ -18,7 +18,7 @@ class IndentedLabel: UILabel{
 
 extension AllDealsController{
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return allDeals.count
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -31,23 +31,14 @@ extension AllDealsController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return self.deals.count
-        } else {
-            return self.finishedDeal.count
-        }
+        return allDeals[section].count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! DealsCell
-        var deal = Deal()
-        if indexPath.section == 0{
-            deal = deals[indexPath.row]
-        } else {
-            deal = finishedDeal[indexPath.row]
-        }
+        let deal = allDeals[indexPath.section][indexPath.row]
         cell.deal = deal
         if let imageUrl = deal.image {
             if imageUrl != "None"{
@@ -59,12 +50,7 @@ extension AllDealsController{
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var deal = Deal()
-        if indexPath.section == 0{
-            deal = deals[indexPath.row]
-        } else {
-            deal = finishedDeal[indexPath.row]
-        }
+        let deal = allDeals[indexPath.section][indexPath.row]
         let addDealVC = AddDealController()
         addDealVC.deal = deal
         addDealVC.client = client
@@ -98,7 +84,20 @@ extension AllDealsController{
     //    }
     
     private func performEditAction(action: UITableViewRowAction, indexPath: IndexPath){
-        print("tracking...")
+        let deal = allDeals[indexPath.section][indexPath.row]
+        guard let shipNumber = deal.shipNumber?.uppercased() else { return }
+        UIPasteboard.general.string = shipNumber
+        var urlString = ""
+        if shipNumber.hasPrefix("OR"){
+            urlString = "http://www.jiguangus.com/"
+        } else if shipNumber.hasPrefix("GC"){
+            urlString = "https://express.shipgce.com/index.htm"
+        } else {
+            present(AlertCreator.shared.createAlertWithTitle(title: "Can't find ship company based on the shipping number."), animated: true, completion: nil)
+            return
+        }
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
 }

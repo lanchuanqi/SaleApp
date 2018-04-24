@@ -27,8 +27,5 @@ struct AlertCreator{
         }))
         return alert
     }
-    
-    func printAlert(){
-        print("asajsksajdfhbaksjdhfgaksdjhf")
-    }
+
 }

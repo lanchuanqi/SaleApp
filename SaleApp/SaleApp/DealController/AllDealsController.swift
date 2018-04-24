@@ -16,10 +16,9 @@ class AllDealsController: UITableViewController{
             observeChangesForDeals()
         }
     }
-    var deals = [Deal]()
-    var finishedDeal = [Deal]()
-    let headerName = ["Not Shipped", "Shipped"]
     
+    let headerName = ["Not Shipped", "Shipped"]
+    var allDeals: [[Deal]] = [[], []]
     
     let cellId = "cellId"
     var selectedIndexPath: IndexPath?
@@ -71,9 +70,9 @@ class AllDealsController: UITableViewController{
                 deal.image = dictionary["image"] as? String
                 if let shipOrNot = deal.shipped{
                     if shipOrNot == "1"{
-                        self.finishedDeal.append(deal)
+                        self.allDeals[1].append(deal)
                     } else {
-                        self.deals.append(deal)
+                        self.allDeals[0].append(deal)
                     }
                 }
                 DispatchQueue.main.async {
@@ -102,16 +101,16 @@ class AllDealsController: UITableViewController{
                 
                 if let shipOrNot = deal.shipped{
                     if shipOrNot == "1"{
-                        if self.finishedDeal.contains(where: {$0.key == deal.key}) == false{
-                            self.finishedDeal.append(deal)
-                            self.deals = self.deals.filter({ (existingDeal) -> Bool in
+                        if self.allDeals[1].contains(where: {$0.key == deal.key}) == false{
+                            self.allDeals[1].append(deal)
+                            self.allDeals[0] = self.allDeals[0].filter({ (existingDeal) -> Bool in
                                 return existingDeal.key != deal.key
                             })
                         }
                     } else {
-                        if self.deals.contains(where: {$0.key == deal.key}) == false{
-                            self.deals.append(deal)
-                            self.finishedDeal = self.finishedDeal.filter({ (existingDeal) -> Bool in
+                        if self.allDeals[0].contains(where: {$0.key == deal.key}) == false{
+                            self.allDeals[0].append(deal)
+                            self.allDeals[1] = self.allDeals[1].filter({ (existingDeal) -> Bool in
                                 return existingDeal.key != deal.key
                             })
                         }
