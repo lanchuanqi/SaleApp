@@ -10,12 +10,7 @@ import UIKit
 import Firebase
 
 class AllDealsController: UITableViewController{
-    var client: Client? {
-        didSet{
-            observeDealAdded()
-            observeChangesForDeals()
-        }
-    }
+    var client: Client?
     
     let headerName = ["Not Shipped", "Shipped"]
     var allDeals: [[Deal]] = [[], []]
@@ -27,6 +22,8 @@ class AllDealsController: UITableViewController{
         super.viewDidLoad()
         setUpNavigationBar()
         setUpTableView()
+        observeDealAdded()
+        observeChangesForDeals()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,6 +103,8 @@ class AllDealsController: UITableViewController{
                             self.allDeals[0] = self.allDeals[0].filter({ (existingDeal) -> Bool in
                                 return existingDeal.key != deal.key
                             })
+                        } else {
+                            self.updatedAllDealsAfterChange(deal: deal)
                         }
                     } else {
                         if self.allDeals[0].contains(where: {$0.key == deal.key}) == false{
@@ -114,12 +113,22 @@ class AllDealsController: UITableViewController{
                                 return existingDeal.key != deal.key
                             })
                         }
+                        else {
+                            self.updatedAllDealsAfterChange(deal: deal)
+                        }
                     }
                 }
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             }
+        }
+    }
+    
+    private func updatedAllDealsAfterChange(deal: Deal){
+        if let indexPath = self.selectedIndexPath{
+            self.allDeals[indexPath.section][indexPath.row] = deal
         }
     }
 

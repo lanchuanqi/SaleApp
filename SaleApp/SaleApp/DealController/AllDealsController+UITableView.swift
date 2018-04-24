@@ -51,6 +51,7 @@ extension AllDealsController{
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let deal = allDeals[indexPath.section][indexPath.row]
+        self.selectedIndexPath = indexPath
         let addDealVC = AddDealController()
         addDealVC.deal = deal
         addDealVC.client = client

@@ -12,16 +12,7 @@ class DealsCell: UITableViewCell{
     var deal: Deal? {
         didSet{
             dateLabel.text = deal?.date
-            if let shipString = deal?.shipped{
-                if Int(shipString) == 1{
-                    if let name = deal?.name{
-                        nameLabel.text = "Shipped-\(name)"
-                    }
-                }
-                else if Int(shipString) == 0{
-                    nameLabel.text = deal?.name
-                }
-            }
+            nameLabel.text = deal?.name
             if let price = deal?.price, let sellPrice = deal?.sellPrice{
                 if let priceDouble = Double(price), let sellPriceDouble = Double(sellPrice){
                     priceEarnLabel.text = "Earn \(sellPriceDouble - priceDouble)"
