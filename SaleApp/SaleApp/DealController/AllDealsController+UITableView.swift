@@ -63,7 +63,7 @@ extension AllDealsController{
         let editAction = UITableViewRowAction(style: .normal, title: "Track", handler: performEditAction)
         
         //deleteAction.backgroundColor = UIColor.lightRed
-        editAction.backgroundColor = UIColor.darkBlue
+        editAction.backgroundColor = UIColor.lightRed
         return [editAction]
     }
     
