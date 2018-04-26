@@ -17,7 +17,7 @@ extension ClientViewController{
         return clients.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 80
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId, for: indexPath) as! ClientCell
@@ -27,6 +27,9 @@ extension ClientViewController{
             if imageUrl != "None"{
                 cell.clientImageView.downLoadAndCacheImageFromURL(urlString: imageUrl)
             }
+        }
+        if let totalProfit = client.profit{
+            cell.profitLabel.text = "Profit: \(totalProfit)"
         }
         return cell
     }

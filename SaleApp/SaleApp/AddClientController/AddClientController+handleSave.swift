@@ -23,6 +23,7 @@ extension AddClientController{
         
         guard var newClient = getClientInfo() else { return }
         newClient.key = randomName
+        newClient.profit = currentClient?.profit
         
         if let image = self.selectedImage{
             // changed image for existing client or added image for new clien
@@ -32,12 +33,12 @@ extension AddClientController{
             if let imageUrl = currentClient?.image{
                 // edit existing client
                 newClient.image = imageUrl
-                let value1 = ["name": newClient.name, "profileImageUrl": imageUrl, "key": newClient.key, "id": newClient.id, "phone": newClient.phone , "address": newClient.address]
+                let value1 = ["name": newClient.name, "profileImageUrl": imageUrl, "key": newClient.key, "id": newClient.id, "phone": newClient.phone , "address": newClient.address, "profit": newClient.profit]
                 addNewClientIntoDatabaseWithUID(userId, randomName: randomName, values: value1 as [String : AnyObject])
             } else {
                 // add new client to database
                 newClient.image = "None"
-                let value2 = ["name": newClient.name, "profileImageUrl": "None", "key": newClient.key, "id": newClient.id, "phone": newClient.phone , "address": newClient.address]
+                let value2 = ["name": newClient.name, "profileImageUrl": "None", "key": newClient.key, "id": newClient.id, "phone": newClient.phone , "address": newClient.address, "profit": "0"]
                 addNewClientIntoDatabaseWithUID(userId, randomName: randomName, values: value2 as [String : AnyObject])
             }
         }
@@ -81,7 +82,12 @@ extension AddClientController{
                     return
                 }
                 if let profileImageURL = metaData?.downloadURL()?.absoluteString{
-                    let values = ["name": createdClient.name, "profileImageUrl": profileImageURL, "key": createdClient.key, "id": createdClient.id, "phone": createdClient.phone , "address": createdClient.address]
+                    var profit = "0"
+                    if let currentProfit = self.currentClient?.profit{
+                        profit = currentProfit
+                    }
+                    
+                    let values = ["name": createdClient.name, "profileImageUrl": profileImageURL, "key": createdClient.key, "id": createdClient.id, "phone": createdClient.phone , "address": createdClient.address, profit: profit]
                     self.addNewClientIntoDatabaseWithUID(userId, randomName: randomName, values: values as [String : AnyObject])
                 }
             }

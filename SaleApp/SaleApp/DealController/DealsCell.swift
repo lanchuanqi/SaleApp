@@ -13,10 +13,8 @@ class DealsCell: UITableViewCell{
         didSet{
             dateLabel.text = deal?.date
             nameLabel.text = deal?.name
-            if let price = deal?.price, let sellPrice = deal?.sellPrice{
-                if let priceDouble = Double(price), let sellPriceDouble = Double(sellPrice){
-                    priceEarnLabel.text = "Earn \(sellPriceDouble - priceDouble)"
-                }
+            if let profit = deal?.profit{
+                priceEarnLabel.text = "Earn \(profit)"
             }
         }
     }

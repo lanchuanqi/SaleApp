@@ -18,4 +18,5 @@ struct Deal {
     var date: String?
     var key: String?
     var image: String?
+    var profit: String?
 }

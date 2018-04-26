@@ -85,6 +85,7 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
                 client.id = dictionary["id"] as? String
                 client.phone = dictionary["phone"] as? String
                 client.address = dictionary["address"] as? String
+                client.profit = dictionary["profit"] as? String
                 self.clients.append(client)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -105,6 +106,7 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
                 client.id = dictionary["id"] as? String
                 client.phone = dictionary["phone"] as? String
                 client.address = dictionary["address"] as? String
+                client.profit = dictionary["profit"] as? String
                 if let indexPath = self.selectedIndexPath{
                     self.clients[indexPath.row] = client
                     DispatchQueue.main.async {
@@ -127,6 +129,7 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
                 client.id = dictionary["id"] as? String
                 client.phone = dictionary["phone"] as? String
                 client.address = dictionary["address"] as? String
+                client.profit = dictionary["profit"] as? String
                 guard let index = self.clients.index(of: client) else { return }
                 self.clients.remove(at: index)
                 DispatchQueue.main.async {

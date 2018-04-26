@@ -50,7 +50,7 @@ class AddDealController: UIViewController{
     let priceLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Price"
+        label.text = "Cost"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()

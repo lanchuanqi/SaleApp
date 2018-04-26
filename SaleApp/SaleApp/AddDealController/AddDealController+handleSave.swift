@@ -16,11 +16,12 @@ extension AddDealController{
         guard let clientKey = client?.key else { return }
         guard let dealKey = deal.key else { return }
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        //let newTotalProfit = caculateNewTotalProfit(newDeal: deal)
         
         if let image = self.selectedImage{
             saveDealImageToStorage(userId: uid, image: image, deal: deal, dealkey: dealKey, clientKey: clientKey)
         } else {
-            let value = ["name": deal.name, "price": deal.price, "sellPrice": deal.sellPrice, "shipNumber": deal.shipNumber, "shipped": deal.shipped, "date": deal.date, "key": deal.key, "image": deal.image] as [String : AnyObject]
+            let value = ["name": deal.name, "price": deal.price, "sellPrice": deal.sellPrice, "shipNumber": deal.shipNumber, "shipped": deal.shipped, "date": deal.date, "key": deal.key, "image": deal.image, "profit": deal.profit] as [String : AnyObject]
             saveDealToDatabase(uid: uid, clientKey: clientKey, dealKey: dealKey, value: value)
         }
     }
@@ -38,7 +39,7 @@ extension AddDealController{
                     return
                 }
                 if let profileImageURL = metaData?.downloadURL()?.absoluteString{
-                    let value = ["name": deal.name, "price": deal.price, "sellPrice": deal.sellPrice, "shipNumber": deal.shipNumber, "shipped": deal.shipped, "date": deal.date, "key": deal.key, "image": profileImageURL] as [String : AnyObject]
+                    let value = ["name": deal.name, "price": deal.price, "sellPrice": deal.sellPrice, "shipNumber": deal.shipNumber, "shipped": deal.shipped, "date": deal.date, "key": deal.key, "image": profileImageURL, "profit": deal.profit] as [String : AnyObject]
                     self.saveDealToDatabase(uid: userId, clientKey: clientKey, dealKey: dealkey, value: value)
                 }
             }
@@ -64,10 +65,6 @@ extension AddDealController{
     }
     
     
-    
-    
-    
-    
     private func getDealInfoFromUser() -> Deal?{
         guard let name = nameTextField.text else {
             present(AlertCreator.shared.createAlertWithTitle(title: "Can't save without product name."), animated: true, completion: nil)
@@ -81,7 +78,7 @@ extension AddDealController{
             present(AlertCreator.shared.createAlertWithTitle(title: "Price or sell price can not be empty."), animated: true, completion: nil)
             return nil
         }
-        guard let dealPrice = Int(price), let dealSellPrice = Int(sellPrice) else {
+        guard let dealPrice = Double(price), let dealSellPrice = Double(sellPrice) else {
             present(AlertCreator.shared.createAlertWithTitle(title: "Price or sell price are bad formatted."), animated: true, completion: nil)
             return nil
         }
@@ -90,6 +87,7 @@ extension AddDealController{
         newDeal.name = name
         newDeal.price = String(dealPrice)
         newDeal.sellPrice = String(dealSellPrice)
+        newDeal.profit = String(dealSellPrice - dealPrice)
         newDeal.shipNumber = shippingTextField.text
         newDeal.shipped = String(shippedSwitch.isOn.hashValue)
         if let edittedDeal = self.deal{
@@ -104,6 +102,57 @@ extension AddDealController{
         newDeal.date = dateFormatter.string(from: Date())
         return newDeal
     }
+    
+//    private func caculateNewTotalProfit(newDeal: Deal) -> Double{
+//        var profitDifference = 0.0
+//        var newProfitTotal = 0.0
+//        if let existDeal = self.deal{
+//            if let oldProfit = existDeal.profit, let newProfit = newDeal.profit{
+//                if let oldProfitInt = Double(oldProfit), let newProfitInt = Double(newProfit){
+//                    profitDifference = newProfitInt - oldProfitInt
+//                }
+//            }
+//        } else {
+//            //new deal, add new profit
+//            if let profit = newDeal.profit{
+//                if let profitInt = Double(profit){
+//                    profitDifference = profitInt
+//                }
+//            }
+//        }
+//        let oldProfitString = getCurrentClientTotalProfit()
+//        if let oldTotal = Double(oldProfitString){
+//            print(oldTotal)
+//            newProfitTotal = oldTotal + profitDifference
+//        }
+//
+//        return newProfitTotal
+//    }
+//
+//
+//    private func getCurrentClientTotalProfit() -> String{
+//        guard let userId = Auth.auth().currentUser?.uid else { return "0" }
+//        guard let clientKey = client?.key else { return "0" }
+//        let ref = Database.database().reference()
+//        ref.child("users").child(userId).child("Clients").child(clientKey).observeSingleEvent(of: .value , with: { (snapshot) in
+//
+//
+//
+//
+//        })
+//        return "0"
+//    }
+//
+//    private func updateTotalProfitOnClient(totalProfit: Double){
+//        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        guard let clientKey = client?.key else { return }
+//        if let selectedClient = client{
+//            let values = ["name": selectedClient.name, "profileImageUrl": selectedClient.image, "key": selectedClient.key, "id": selectedClient.id, "phone": selectedClient.phone , "address": selectedClient.address, "profit": String(totalProfit)] as [String : AnyObject]
+//            let ref = Database.database().reference()
+//            ref.child("users").child(userId).child("Clients").child(clientKey).updateChildValues(values)
+//        }
+//    }
+
     
     
 }

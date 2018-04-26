@@ -14,7 +14,7 @@ class ClientCell: UITableViewCell{
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.image = #imageLiteral(resourceName: "profile2")
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 35
         imageView.clipsToBounds = true
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.darkBlue.cgColor
@@ -24,12 +24,20 @@ class ClientCell: UITableViewCell{
     let nameLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Client Name"
         return label
     }()
     
+    let profitLabel: UILabel = {
+        var label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Profit: 20"
+        return label
+    }()
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -40,16 +48,22 @@ class ClientCell: UITableViewCell{
     private func setUpView(){
         backgroundColor = UIColor.cellBackgroundColor
         addSubview(clientImageView)
-        clientImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        clientImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        clientImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        clientImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         clientImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         clientImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         addSubview(nameLabel)
         nameLabel.leftAnchor.constraint(equalTo: clientImageView.rightAnchor, constant: 10).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        addSubview(profitLabel)
+        profitLabel.leftAnchor.constraint(equalTo: clientImageView.rightAnchor, constant: 10).isActive = true
+        profitLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        profitLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        profitLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         
     }
