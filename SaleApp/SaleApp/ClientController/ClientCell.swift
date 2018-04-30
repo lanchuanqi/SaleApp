@@ -24,7 +24,7 @@ class ClientCell: UITableViewCell{
     let nameLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Client Name"
         return label
@@ -33,7 +33,7 @@ class ClientCell: UITableViewCell{
     let profitLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont(name: "Roboto-Thin", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Profit: 20"
         return label

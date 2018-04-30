@@ -54,6 +54,7 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
         navigationItem.title = "Clients"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(handleAddClient))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        
     }
     @objc private func handleLogout(){
         if Auth.auth().currentUser != nil{

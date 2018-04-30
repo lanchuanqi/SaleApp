@@ -44,7 +44,7 @@ class DealsCell: UITableViewCell{
     let dateLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Roboto-Thin", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Apr 12, 2018"
         return label
@@ -53,7 +53,7 @@ class DealsCell: UITableViewCell{
     let priceEarnLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Roboto-Thin", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Earn 20"
         return label
