@@ -22,6 +22,13 @@ class AddClientController: UIViewController{
                     clientImageView.downLoadAndCacheImageFromURL(urlString: url)
                 }
             }
+            if let role = currentClient?.role{
+                if role == ClientRole.Agency.rawValue{
+                    self.clientTypeSegmentControl.selectedSegmentIndex = 0
+                } else {
+                    self.clientTypeSegmentControl.selectedSegmentIndex = 1
+                }
+            }
         }
     }
     
@@ -53,13 +60,13 @@ class AddClientController: UIViewController{
     let phoneNumberLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Phone#"
+        label.text = "Phone"
         return label
     }()
     let phoneNumberTextField: UITextField = {
         var textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Enter Phone#"
+        textField.placeholder = "Enter Phone Number"
         return textField
     }()
     let idLabel: UILabel = {
@@ -75,7 +82,6 @@ class AddClientController: UIViewController{
         return textField
     }()
     
-    
     lazy var clientImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,11 +96,22 @@ class AddClientController: UIViewController{
         return imageView
     }()
     
+    let clientTypeSegmentControl: UISegmentedControl = {
+        let type = [ClientRole.Agency.rawValue,
+                    ClientRole.Customer.rawValue]
+        var sc = UISegmentedControl(items: type)
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.selectedSegmentIndex = 1
+        sc.tintColor = UIColor.lightRed
+        return sc
+    }()
+    
+    
     private func setUpUI(){
-        let _ = setUpLightBlueBackgroundView(height: 360)
+        let _ = setUpLightBlueBackgroundView(height: 345)
         
         view.addSubview(clientImageView)
-        clientImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        clientImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
         clientImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         clientImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         clientImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -145,8 +162,13 @@ class AddClientController: UIViewController{
         addressTextView.leftAnchor.constraint(equalTo: addressLabel.rightAnchor).isActive = true
         addressTextView.topAnchor.constraint(equalTo: addressLabel.topAnchor).isActive = true
         addressTextView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        addressTextView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        addressTextView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
+        view.addSubview(clientTypeSegmentControl)
+        clientTypeSegmentControl.topAnchor.constraint(equalTo: addressTextView.bottomAnchor).isActive = true
+        clientTypeSegmentControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        clientTypeSegmentControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        clientTypeSegmentControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
     }
     
     override func viewDidLoad() {

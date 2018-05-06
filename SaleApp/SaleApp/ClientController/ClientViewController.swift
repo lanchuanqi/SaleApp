@@ -12,8 +12,9 @@ import Firebase
 
 class ClientViewController: UITableViewController, LoginControllerDelegate {
     let tableViewCellId = "cellId"
-    var clients = [Client]()
+    var allClients: [[Client]] = [[], []]
     var selectedIndexPath: IndexPath?
+    let headerNames = [ClientRole.Agency.rawValue, ClientRole.Customer.rawValue]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +36,10 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
         }
     }
     private func updatedDataFromDatabase(){
-        if self.clients.count != 0{
-            self.clients.removeAll()
-            self.tableView.reloadData()
-        }
+        self.allClients[0].removeAll()
+        self.allClients[1].removeAll()
+        self.tableView.reloadData()
+        
         downLoadClientInfo()
         observeChangesForClients()
     }
@@ -54,8 +55,8 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
         navigationItem.title = "Clients"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(handleAddClient))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        
     }
+    
     @objc private func handleLogout(){
         if Auth.auth().currentUser != nil{
             do{
@@ -87,7 +88,17 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
                 client.phone = dictionary["phone"] as? String
                 client.address = dictionary["address"] as? String
                 client.profit = dictionary["profit"] as? String
-                self.clients.append(client)
+                if let role = dictionary["role"] as? String{
+                    client.role = role
+                    if role == ClientRole.Customer.rawValue{
+                        self.allClients[1].append(client)
+                    } else {
+                        self.allClients[0].append(client)
+                    }
+                } else {
+                    client.role = "Customer"
+                    self.allClients[1].append(client)
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -109,36 +120,47 @@ class ClientViewController: UITableViewController, LoginControllerDelegate {
                 client.address = dictionary["address"] as? String
                 client.profit = dictionary["profit"] as? String
                 if let indexPath = self.selectedIndexPath{
-                    self.clients[indexPath.row] = client
+                    self.allClients[indexPath.section].remove(at: indexPath.row)
+                    if let role = dictionary["role"] as? String{
+                        client.role = role
+                        if role == "Customer"{
+                            self.allClients[1].append(client)
+                        } else {
+                            self.allClients[0].append(client)
+                        }
+                    } else {
+                        client.role = "Customer"
+                        self.allClients[1].append(client)
+                    }
                     DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [indexPath], with: .middle)
+                        self.tableView.reloadData()
                     }
                 }
             }
         }
     }
     
-    private func observeDeleteActionForClients(){
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        let ref = Database.database().reference()
-        ref.child("users").child(userId).child("Clients").observe(.childRemoved) { (snapshot) in
-            if let dictionary = snapshot.value as? NSDictionary {
-                var client = Client()
-                client.name = dictionary["name"] as? String
-                client.image = dictionary["profileImageUrl"] as? String
-                client.key = dictionary["key"] as? String
-                client.id = dictionary["id"] as? String
-                client.phone = dictionary["phone"] as? String
-                client.address = dictionary["address"] as? String
-                client.profit = dictionary["profit"] as? String
-                guard let index = self.clients.index(of: client) else { return }
-                self.clients.remove(at: index)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
+//    private func observeDeleteActionForClients(){
+//        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        let ref = Database.database().reference()
+//        ref.child("users").child(userId).child("Clients").observe(.childRemoved) { (snapshot) in
+//            if let dictionary = snapshot.value as? NSDictionary {
+//                var client = Client()
+//                client.name = dictionary["name"] as? String
+//                client.image = dictionary["profileImageUrl"] as? String
+//                client.key = dictionary["key"] as? String
+//                client.id = dictionary["id"] as? String
+//                client.phone = dictionary["phone"] as? String
+//                client.address = dictionary["address"] as? String
+//                client.profit = dictionary["profit"] as? String
+//                guard let index = self.clients.index(of: client) else { return }
+//                self.clients.remove(at: index)
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
+//    }
     
     func didLogin() {
         updatedDataFromDatabase()

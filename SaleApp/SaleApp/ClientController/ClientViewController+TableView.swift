@@ -9,19 +9,28 @@
 import UIKit
 
 extension ClientViewController{
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = IndentedLabel()
+        label.text = headerNames[section]
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = UIColor.darkBlue
+        label.backgroundColor = UIColor.lightBlue
+        return label
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.allClients.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return clients.count
+        return self.allClients[section].count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellId, for: indexPath) as! ClientCell
-        let client = clients[indexPath.row]
+        let client = self.allClients[indexPath.section][indexPath.row]
         cell.nameLabel.text = client.name
         if let imageUrl = client.image {
             if imageUrl != "None"{
@@ -35,7 +44,7 @@ extension ClientViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let client = clients[indexPath.row]
+        let client = allClients[indexPath.section][indexPath.row]
         let dealsVC = AllDealsController()
         dealsVC.client = client
         self.navigationController?.pushViewController(dealsVC, animated: true)
@@ -48,7 +57,7 @@ extension ClientViewController{
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: performEditAction)
         
         //deleteAction.backgroundColor = UIColor.lightRed
-        editAction.backgroundColor = UIColor.darkBlue
+        editAction.backgroundColor = UIColor.lightRed
         return [editAction]
     }
     
@@ -71,7 +80,7 @@ extension ClientViewController{
     
     private func performEditAction(action: UITableViewRowAction, indexPath: IndexPath){
         let editClientController = AddClientController()
-        editClientController.currentClient = self.clients[indexPath.row]
+        editClientController.currentClient = self.allClients[indexPath.section][indexPath.row]
         self.selectedIndexPath = indexPath
         let naviController = CustomeNavigationController(rootViewController: editClientController)
         present(naviController, animated: true, completion: nil)

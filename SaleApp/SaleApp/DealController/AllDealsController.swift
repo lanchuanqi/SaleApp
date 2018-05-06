@@ -13,7 +13,6 @@ import Firebase
 
 class AllDealsController: UITableViewController{
     var client: Client?
-    
     let headerName = ["Not Shipped", "Shipped"]
     var allDeals: [[Deal]] = [[], []]
     

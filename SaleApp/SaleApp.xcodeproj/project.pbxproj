@@ -31,10 +31,13 @@
 		02077050207E832200AB4675 /* AddDealController+handleSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0207704F207E832200AB4675 /* AddDealController+handleSave.swift */; };
 		02077052207E8D1900AB4675 /* AddClientController+imagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02077051207E8D1900AB4675 /* AddClientController+imagePicker.swift */; };
 		02077054207EB78A00AB4675 /* AddClientController+handleSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02077053207EB78A00AB4675 /* AddClientController+handleSave.swift */; };
+		026FE4E2209EA20300F0969D /* ClientRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026FE4E1209EA20300F0969D /* ClientRole.swift */; };
 		02A67DEE208027F70007F15C /* AllDealsController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A67DED208027F70007F15C /* AllDealsController+UITableView.swift */; };
 		02A67DF02081274D0007F15C /* DealsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A67DEF2081274D0007F15C /* DealsCell.swift */; };
 		02A67DF320812FC20007F15C /* AddDealController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A67DF220812FC20007F15C /* AddDealController+ImagePicker.swift */; };
 		02C12A272096F1C40082EF61 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02C12A262096F1BE0082EF61 /* Roboto-Thin.ttf */; };
+		02C12A2D2096FA990082EF61 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0207701C207B367A00AB4675 /* Info.plist */; };
+		02C12A2F2096FB460082EF61 /* ruizigongfang.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02C12A2E2096FB460082EF61 /* ruizigongfang.ttf */; };
 		DCCD5D8DD841FA91879A2C07 /* Pods_SaleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAA416E1457F3CBD29D4AEF /* Pods_SaleApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,10 +68,12 @@
 		0207704F207E832200AB4675 /* AddDealController+handleSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddDealController+handleSave.swift"; sourceTree = "<group>"; };
 		02077051207E8D1900AB4675 /* AddClientController+imagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddClientController+imagePicker.swift"; sourceTree = "<group>"; };
 		02077053207EB78A00AB4675 /* AddClientController+handleSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddClientController+handleSave.swift"; sourceTree = "<group>"; };
+		026FE4E1209EA20300F0969D /* ClientRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientRole.swift; sourceTree = "<group>"; };
 		02A67DED208027F70007F15C /* AllDealsController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AllDealsController+UITableView.swift"; sourceTree = "<group>"; };
 		02A67DEF2081274D0007F15C /* DealsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealsCell.swift; sourceTree = "<group>"; };
 		02A67DF220812FC20007F15C /* AddDealController+ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddDealController+ImagePicker.swift"; sourceTree = "<group>"; };
 		02C12A262096F1BE0082EF61 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		02C12A2E2096FB460082EF61 /* ruizigongfang.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ruizigongfang.ttf; sourceTree = "<group>"; };
 		3DAA416E1457F3CBD29D4AEF /* Pods_SaleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAC56B3EF988BC872714D4A9 /* Pods-SaleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SaleApp/Pods-SaleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BBCB1D630A573E055717DD12 /* Pods-SaleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SaleApp/Pods-SaleApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +158,7 @@
 				0207702F207B377D00AB4675 /* AddClientController.swift */,
 				02077051207E8D1900AB4675 /* AddClientController+imagePicker.swift */,
 				02077053207EB78A00AB4675 /* AddClientController+handleSave.swift */,
+				026FE4E1209EA20300F0969D /* ClientRole.swift */,
 			);
 			path = AddClientController;
 			sourceTree = "<group>";
@@ -207,6 +213,7 @@
 		02C12A222096EDDC0082EF61 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				02C12A2E2096FB460082EF61 /* ruizigongfang.ttf */,
 				02C12A262096F1BE0082EF61 /* Roboto-Thin.ttf */,
 			);
 			path = Font;
@@ -293,7 +300,9 @@
 				02C12A272096F1C40082EF61 /* Roboto-Thin.ttf in Resources */,
 				02077037207B3DEB00AB4675 /* GoogleService-Info.plist in Resources */,
 				02077018207B367A00AB4675 /* Assets.xcassets in Resources */,
+				02C12A2F2096FB460082EF61 /* ruizigongfang.ttf in Resources */,
 				02077016207B367900AB4675 /* Main.storyboard in Resources */,
+				02C12A2D2096FA990082EF61 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +370,7 @@
 				0207702D207B375700AB4675 /* UIView+theam.swift in Sources */,
 				02077040207B3F7800AB4675 /* Alert.swift in Sources */,
 				02077054207EB78A00AB4675 /* AddClientController+handleSave.swift in Sources */,
+				026FE4E2209EA20300F0969D /* ClientRole.swift in Sources */,
 				02077028207B372300AB4675 /* ClientCell.swift in Sources */,
 				02077024207B36ED00AB4675 /* ClientViewController.swift in Sources */,
 				02077046207C8A2F00AB4675 /* AllDealsController.swift in Sources */,

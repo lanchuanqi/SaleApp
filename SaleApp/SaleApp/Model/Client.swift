@@ -17,6 +17,7 @@ struct Client: Equatable {
     var phone: String?
     var address: String?
     var profit: String?
+    var role: String?
     
     public static func ==(lhs: Client, rhs: Client) -> Bool{
         guard let leftKey = lhs.key else { return false }

@@ -35,7 +35,7 @@ class DealsCell: UITableViewCell{
     let nameLabel: UILabel = {
         var label = UILabel()
         label.textColor = UIColor.white
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Item Name"
         return label
